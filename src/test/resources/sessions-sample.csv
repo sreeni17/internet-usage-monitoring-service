@@ -1,0 +1,3 @@
+username, mac_address, start_time, usage_time, upload, download
+alice,AA:BB:CC:DD:EE:01,2022-11-04 10:00:00,1:00:00,8000,16000
+bob,AA:BB:CC:DD:EE:02,2022-11-04 23:00:00,2:00:00,16000,8000

@@ -1,0 +1,63 @@
+openapi: 3.0.3
+info:
+  title: Internet Usage Monitoring Service
+  version: 1.0.0
+  description: Analytics APIs for internet usage sessions.
+servers:
+  - url: http://localhost:8080
+paths:
+  /analytics:
+    get:
+      summary: Top users by usage in the last 30 days
+      parameters:
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+            example: "24122022"
+          description: As-of date in DDMMYYYY
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            default: 100
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Alias for pageSize
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+      responses:
+        "200":
+          description: Ranked users or empty data
+        "422":
+          description: Invalid or future date
+  /user/search:
+    get:
+      summary: Usage for one user relative to a timestamp
+      parameters:
+        - name: username
+          in: query
+          required: true
+          schema:
+            type: string
+            example: brainyHeron5
+        - name: datetime
+          in: query
+          required: true
+          schema:
+            type: string
+            example: "20221104T1543"
+          description: As-of datetime in YYYYMMDDThhmm
+      responses:
+        "200":
+          description: Last 1 hour, 6 hours and 24 hours
+        "404":
+          description: User not found
+        "422":
+          description: Invalid username or datetime
