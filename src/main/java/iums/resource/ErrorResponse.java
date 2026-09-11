@@ -1,8 +1,19 @@
 package iums.resource;
 
-public record ErrorResponse(boolean ok, ErrorBody error) {
+import io.swagger.v3.oas.annotations.media.Schema;
 
-    public record ErrorBody(String message) {
+@Schema(description = "Error payload returned for 4xx responses")
+public record ErrorResponse(
+        @Schema(description = "Always false for errors", example = "false")
+        boolean ok,
+        @Schema(description = "Error details")
+        ErrorBody error
+) {
+
+    public record ErrorBody(
+            @Schema(description = "Human-readable error message", example = "user not found")
+            String message
+    ) {
     }
 
     public static ErrorResponse of(String message) {
